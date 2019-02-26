@@ -106,24 +106,13 @@ class FriendlyErrorMessagesMixin(FieldMap):
             kwargs.update({'max_length': getattr(field, 'max_length', None)})
         return kwargs
 
-    def does_not_exist_many_to_many_handler(self, field, message, kwargs):
-        unformatted = field.error_messages['does_not_exist']
-        new_kwargs = kwargs
-        for value in kwargs['value']:
-            new_kwargs['value'] = value
-            if unformatted.format(**new_kwargs) == message:
-                return True
-        return False
-
     def find_key(self, field, message, field_name):
         kwargs = self.get_field_kwargs(
             field, self.initial_data.get(field_name)
         )
         for key in field.error_messages:
             if key == 'does_not_exist' \
-                and isinstance(kwargs.get('value'), list) \
-                and self.does_not_exist_many_to_many_handler(
-                    field, message, kwargs):
+                and isinstance(kwargs.get('value'), list):
                 return key
             unformatted = field.error_messages[key]
             if unformatted.format(**kwargs) == message:
@@ -147,7 +136,7 @@ class FriendlyErrorMessagesMixin(FieldMap):
                 return validator
 
     def get_field_error_entry(self, error, field):
-        if error in self.registered_errors:
+        if error in self.registered_errors.keys():
             return self.registered_errors[error]
         field_type = field.__class__.__name__
         key = self.find_key(field, error, field.field_name)

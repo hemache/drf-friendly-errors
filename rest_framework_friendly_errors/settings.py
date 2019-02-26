@@ -81,7 +81,7 @@ FRIENDLY_FIELD_ERRORS = {
                                  'incorrect_match': 2171, 'no_match': 2171},
     'ManyRelatedField': {'required': 2007, 'null': 2027,
                          'invalid_choice': 2083, 'not_a_list': 2123,
-                         'empty': 2093},
+                         'empty': 2093,  'does_not_exist': 2151},
 
     'ReadOnlyField': {'required': 2008, 'null': 2028},
     'HiddenField': {'required': 2008, 'null': 2028},
