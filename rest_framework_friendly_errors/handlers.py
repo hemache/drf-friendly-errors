@@ -22,6 +22,6 @@ def friendly_exception_handler(exc, context):
         response.data['code'] = error_code
         response.data['message'] = error_message
         response.data['status_code'] = response.status_code
-        # response.data['exception'] = exc.__class__.__name__
+        response.dsata['exception'] = exc.__class__.__name__
 
     return response
